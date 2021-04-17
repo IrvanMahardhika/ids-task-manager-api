@@ -18,6 +18,8 @@ const UserRepository_1 = __importDefault(require("@infras/repositories/user/User
 const RepositoryTransaction_1 = __importDefault(require("@infras/repositories/RepositoryTransaction"));
 const EncriptionService_1 = __importDefault(require("@infras/services/encription/EncriptionService"));
 const express_1 = __importDefault(require("express"));
+const express_validator_1 = require("express-validator");
+const validator_1 = require("@infras/middleware/validator");
 const router = express_1.default.Router();
 const createUserController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -45,5 +47,5 @@ const createUserController = (req, res, next) => __awaiter(void 0, void 0, void 
         next(err);
     }
 });
-exports.postUserRouter = router.post('/register', createUserController);
+exports.postUserRouter = router.post('/register', express_validator_1.body('email').isEmail(), validator_1.checkValidationResult, createUserController);
 //# sourceMappingURL=post.user.js.map

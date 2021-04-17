@@ -52,6 +52,15 @@ export default class UserCreatorAction {
 
     try {
       const { name, email, password: encriptedPassword } = userData;
+      const user = await this.userRepo.findOne({
+        where: { email },
+      });
+      if (user) {
+        return {
+          status: 'INVALID',
+          message: 'E-mail already in use',
+        };
+      }
       const { decrypt, generateHash } = this.encriptionService;
       const decryptedPassword = decrypt(encriptedPassword!);
       const newUserData = await this.userRepo.create({

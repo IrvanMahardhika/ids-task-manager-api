@@ -44,6 +44,15 @@ class UserCreatorAction {
             yield this.startTransaction();
             try {
                 const { name, email, password: encriptedPassword } = userData;
+                const user = yield this.userRepo.findOne({
+                    where: { email },
+                });
+                if (user) {
+                    return {
+                        status: 'INVALID',
+                        message: 'E-mail already in use',
+                    };
+                }
                 const { decrypt, generateHash } = this.encriptionService;
                 const decryptedPassword = decrypt(encriptedPassword);
                 const newUserData = yield this.userRepo.create({

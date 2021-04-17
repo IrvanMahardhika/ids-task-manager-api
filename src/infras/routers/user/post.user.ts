@@ -3,6 +3,8 @@ import UserRepository from '@infras/repositories/user/UserRepository';
 import RepositoryTransaction from '@infras/repositories/RepositoryTransaction';
 import EncriptionService from '@infras/services/encription/EncriptionService';
 import express, { Request, Response, NextFunction } from 'express';
+import { body } from 'express-validator';
+import { checkValidationResult } from '@infras/middleware/validator';
 
 const router = express.Router();
 
@@ -43,4 +45,9 @@ const createUserController = async (
   }
 };
 
-export const postUserRouter = router.post('/register', createUserController);
+export const postUserRouter = router.post(
+  '/register',
+  body('email').isEmail(),
+  checkValidationResult,
+  createUserController,
+);

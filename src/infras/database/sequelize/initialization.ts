@@ -1,3 +1,4 @@
+import { UserInitialization } from './models/User';
 import { TaskInitialization } from './models/Task';
 
-export default [TaskInitialization];
+export default [UserInitialization, TaskInitialization];

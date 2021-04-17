@@ -4,6 +4,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 
+import taskRouter from '@infras/routers/task';
+import userRouter from '@infras/routers/user';
+
 export default class App {
   private app: Express;
   private environment: String;
@@ -35,7 +38,10 @@ export default class App {
     });
   }
 
-  private setRouters(): void {}
+  private setRouters(): void {
+    this.app.use('/task', taskRouter);
+    this.app.use('/user', userRouter);
+  }
 
   initialize(): void {
     this.setExpressConfig();

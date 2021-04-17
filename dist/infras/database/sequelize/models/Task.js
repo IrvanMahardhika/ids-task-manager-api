@@ -7,6 +7,9 @@ class Task extends sequelize_1.Model {
 exports.Task = Task;
 const init = (sequelize) => {
     Task.init({
+        userId: {
+            type: sequelize_1.DataTypes.INTEGER,
+        },
         title: {
             type: sequelize_1.DataTypes.STRING,
         },
@@ -16,7 +19,8 @@ const init = (sequelize) => {
     });
 };
 const applyRelations = (models) => {
-    // apply relations here
+    const { User } = models;
+    Task.belongsTo(User, { foreignKey: 'userId' });
 };
 exports.TaskInitialization = {
     init,

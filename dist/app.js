@@ -8,6 +8,8 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+const task_1 = __importDefault(require("@infras/routers/task"));
+const user_1 = __importDefault(require("@infras/routers/user"));
 class App {
     constructor() {
         this.app = express_1.default();
@@ -27,7 +29,10 @@ class App {
             next();
         });
     }
-    setRouters() { }
+    setRouters() {
+        this.app.use('/task', task_1.default);
+        this.app.use('/user', user_1.default);
+    }
     initialize() {
         this.setExpressConfig();
         this.setRouters();

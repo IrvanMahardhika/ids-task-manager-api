@@ -3,12 +3,16 @@ import ITask from '@core/entities/task/ITask';
 import IModelSet from '../IModelSet';
 
 export class Task extends Model implements ITask {
-  title?: string;
+  userId: number;
+  title: string;
 }
 
 const init = (sequelize: Sequelize): void => {
   Task.init(
     {
+      userId: {
+        type: DataTypes.INTEGER,
+      },
       title: {
         type: DataTypes.STRING,
       },
@@ -21,7 +25,8 @@ const init = (sequelize: Sequelize): void => {
 };
 
 const applyRelations = (models: IModelSet): void => {
-  // apply relations here
+  const { User } = models;
+  Task.belongsTo(User, { foreignKey: 'userId' });
 };
 
 export const TaskInitialization = {

@@ -1,4 +1,10 @@
+import 'module-alias/register';
 import App from './app';
+import DB from './db';
 
-const app = new App();
-app.initialize();
+(async () => {
+  const app = new App();
+  app.initialize();
+
+  await DB.initialize();
+})();

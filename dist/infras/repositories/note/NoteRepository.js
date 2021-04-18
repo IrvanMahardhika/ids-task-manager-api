@@ -14,34 +14,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = __importDefault(require("@infras/database/sequelize/models"));
 const helpers_1 = require("../helpers");
-const { Task: TaskModel } = models_1.default;
-class TaskRepository {
+const { Note: NoteModel } = models_1.default;
+class NoteRepository {
     setTransaction(transaction) {
         this.transaction = transaction;
     }
     findOne(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const sequelizeOptions = helpers_1.repositoryOptionConverter(options);
-            const task = yield TaskModel.findOne(Object.assign(Object.assign({}, sequelizeOptions), { transaction: this.transaction }));
-            return task && task.get({ plain: true });
+            const note = yield NoteModel.findOne(Object.assign(Object.assign({}, sequelizeOptions), { transaction: this.transaction }));
+            return note && note.get({ plain: true });
         });
     }
     findAll(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const sequelizeOptions = helpers_1.repositoryOptionConverter(options);
-            const tasks = yield TaskModel.findAll(Object.assign(Object.assign({}, sequelizeOptions), { transaction: this.transaction }));
-            return tasks && tasks.map((task) => task.get({ plain: true }));
+            const notes = yield NoteModel.findAll(Object.assign(Object.assign({}, sequelizeOptions), { transaction: this.transaction }));
+            return notes && notes.map((note) => note.get({ plain: true }));
         });
     }
     create(entity) {
         return __awaiter(this, void 0, void 0, function* () {
-            const dataEntry = yield TaskModel.create(entity);
+            const dataEntry = yield NoteModel.create(entity);
             return dataEntry;
         });
     }
     delete(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const deletedId = yield TaskModel.destroy({
+            const deletedId = yield NoteModel.destroy({
                 where: options.where,
                 transaction: this.transaction,
             });
@@ -51,5 +51,5 @@ class TaskRepository {
         });
     }
 }
-exports.default = TaskRepository;
-//# sourceMappingURL=TaskRepository.js.map
+exports.default = NoteRepository;
+//# sourceMappingURL=NoteRepository.js.map

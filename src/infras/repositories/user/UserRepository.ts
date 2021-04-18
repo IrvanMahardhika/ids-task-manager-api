@@ -18,25 +18,22 @@ export default class UserRepository implements IUserRepository {
 
   async findOne(options?: IRepositoryOptions): Promise<User> {
     const sequelizeOptions = repositoryOptionConverter(options!);
-    const onlineCourse = await UserModel.findOne({
+    const user = await UserModel.findOne({
       ...sequelizeOptions,
       transaction: this.transaction,
     });
 
-    return onlineCourse && onlineCourse.get({ plain: true });
+    return user && user.get({ plain: true });
   }
 
   async findAll(options?: IRepositoryOptions): Promise<User[]> {
     const sequelizeOptions = repositoryOptionConverter(options!);
-    const onlineCourses = await UserModel.findAll({
+    const users = await UserModel.findAll({
       ...sequelizeOptions,
       transaction: this.transaction,
     });
 
-    return (
-      onlineCourses &&
-      onlineCourses.map((onlineCourse) => onlineCourse.get({ plain: true }))
-    );
+    return users && users.map((user) => user.get({ plain: true }));
   }
 
   async create(entity: User): Promise<User> {

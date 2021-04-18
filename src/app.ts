@@ -4,8 +4,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import taskRouter from '@infras/routers/task';
 import userRouter from '@infras/routers/user';
+import taskRouter from '@infras/routers/task';
+import noteRouter from '@infras/routers/note';
 
 export default class App {
   private app: Express;
@@ -39,8 +40,9 @@ export default class App {
   }
 
   private setRouters(): void {
-    this.app.use('/task', taskRouter);
     this.app.use('/user', userRouter);
+    this.app.use('/task', taskRouter);
+    this.app.use('/note', noteRouter);
   }
 
   initialize(): void {

@@ -1,48 +1,48 @@
 import { Transaction } from 'sequelize';
-import Task from '@core/entities/task/Task';
-import ITaskRepository from '@core/repositories/task/ITaskRepository';
+import Note from '@core/entities/note/Note';
+import INoteRepository from '@core/repositories/note/INoteRepository';
 import IRepositoryOptions, {
   WhereOptions,
 } from '@core/repositories/IRepositoryOptions';
 import models from '@infras/database/sequelize/models';
 import { repositoryOptionConverter } from '../helpers';
 
-const { Task: TaskModel } = models;
+const { Note: NoteModel } = models;
 
-export default class TaskRepository implements ITaskRepository {
+export default class NoteRepository implements INoteRepository {
   private transaction: Transaction;
 
   setTransaction(transaction: Transaction): void {
     this.transaction = transaction;
   }
 
-  async findOne(options?: IRepositoryOptions): Promise<Task> {
+  async findOne(options?: IRepositoryOptions): Promise<Note> {
     const sequelizeOptions = repositoryOptionConverter(options!);
-    const task = await TaskModel.findOne({
+    const note = await NoteModel.findOne({
       ...sequelizeOptions,
       transaction: this.transaction,
     });
 
-    return task && task.get({ plain: true });
+    return note && note.get({ plain: true });
   }
 
-  async findAll(options?: IRepositoryOptions): Promise<Task[]> {
+  async findAll(options?: IRepositoryOptions): Promise<Note[]> {
     const sequelizeOptions = repositoryOptionConverter(options!);
-    const tasks = await TaskModel.findAll({
+    const notes = await NoteModel.findAll({
       ...sequelizeOptions,
       transaction: this.transaction,
     });
 
-    return tasks && tasks.map((task) => task.get({ plain: true }));
+    return notes && notes.map((note) => note.get({ plain: true }));
   }
 
-  async create(entity: Task): Promise<Task> {
-    const dataEntry = await TaskModel.create(entity);
+  async create(entity: Note): Promise<Note> {
+    const dataEntry = await NoteModel.create(entity);
     return dataEntry;
   }
 
-  async delete(options: WhereOptions): Promise<Task> {
-    const deletedId = await TaskModel.destroy({
+  async delete(options: WhereOptions): Promise<Note> {
+    const deletedId = await NoteModel.destroy({
       where: options.where,
       transaction: this.transaction,
     });

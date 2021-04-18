@@ -22,6 +22,13 @@ export default class TaskFinderAction {
 
       const taskListPerUser = await this.taskRepo.findAll({
         where: { userId },
+        include: [
+          {
+            model: 'Note',
+            as: 'note',
+            required: false,
+          },
+        ],
       });
 
       return {

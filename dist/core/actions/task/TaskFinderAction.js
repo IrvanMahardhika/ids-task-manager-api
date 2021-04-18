@@ -21,6 +21,13 @@ class TaskFinderAction {
                 const { userId } = conditions;
                 const taskListPerUser = yield this.taskRepo.findAll({
                     where: { userId },
+                    include: [
+                        {
+                            model: 'Note',
+                            as: 'note',
+                            required: false,
+                        },
+                    ],
                 });
                 return {
                     status: 'SUCCESS',

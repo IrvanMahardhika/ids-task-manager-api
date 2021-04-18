@@ -19,8 +19,9 @@ const init = (sequelize) => {
     });
 };
 const applyRelations = (models) => {
-    const { User } = models;
+    const { User, Note } = models;
     Task.belongsTo(User, { foreignKey: 'userId' });
+    Task.hasMany(Note, { foreignKey: 'taskId' });
 };
 exports.TaskInitialization = {
     init,

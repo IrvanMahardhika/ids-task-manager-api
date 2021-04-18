@@ -22,16 +22,15 @@ class UserRepository {
     findOne(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const sequelizeOptions = helpers_1.repositoryOptionConverter(options);
-            const onlineCourse = yield UserModel.findOne(Object.assign(Object.assign({}, sequelizeOptions), { transaction: this.transaction }));
-            return onlineCourse && onlineCourse.get({ plain: true });
+            const user = yield UserModel.findOne(Object.assign(Object.assign({}, sequelizeOptions), { transaction: this.transaction }));
+            return user && user.get({ plain: true });
         });
     }
     findAll(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const sequelizeOptions = helpers_1.repositoryOptionConverter(options);
-            const onlineCourses = yield UserModel.findAll(Object.assign(Object.assign({}, sequelizeOptions), { transaction: this.transaction }));
-            return (onlineCourses &&
-                onlineCourses.map((onlineCourse) => onlineCourse.get({ plain: true })));
+            const users = yield UserModel.findAll(Object.assign(Object.assign({}, sequelizeOptions), { transaction: this.transaction }));
+            return users && users.map((user) => user.get({ plain: true }));
         });
     }
     create(entity) {

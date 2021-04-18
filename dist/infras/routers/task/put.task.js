@@ -31,22 +31,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTaskRouter = void 0;
-const TaskCreatorAction_1 = __importDefault(require("@core/actions/task/TaskCreatorAction"));
+exports.setCompletedTaskRouter = void 0;
+const TaskUpdaterAction_1 = __importDefault(require("@core/actions/task/TaskUpdaterAction"));
 const TaskRepository_1 = __importDefault(require("@infras/repositories/task/TaskRepository"));
 const RepositoryTransaction_1 = __importDefault(require("@infras/repositories/RepositoryTransaction"));
 const express_1 = __importDefault(require("express"));
 const auth = __importStar(require("@infras/middleware/auth"));
 const router = express_1.default.Router();
-const createTaskController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const setCompletedTaskController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { title } = req.body;
-        const { userId } = res.locals;
-        const action = new TaskCreatorAction_1.default({
+        const { taskId } = req.params;
+        const action = new TaskUpdaterAction_1.default({
             taskRepo: new TaskRepository_1.default(),
             repositoryTransaction: new RepositoryTransaction_1.default(),
         });
-        const { status, message } = yield action.create({ userId, title });
+        const { status, message } = yield action.setCompleted(Number(taskId));
         if (status === 'SUCCESS') {
             res.status(200).send({
                 message,
@@ -59,5 +58,5 @@ const createTaskController = (req, res, next) => __awaiter(void 0, void 0, void 
         next(err);
     }
 });
-exports.createTaskRouter = router.post('/', auth.user, createTaskController);
-//# sourceMappingURL=post.task.js.map
+exports.setCompletedTaskRouter = router.put('/completed/:taskId', auth.user, setCompletedTaskController);
+//# sourceMappingURL=put.task.js.map

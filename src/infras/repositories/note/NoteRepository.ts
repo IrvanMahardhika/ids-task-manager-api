@@ -41,6 +41,13 @@ export default class NoteRepository implements INoteRepository {
     return dataEntry;
   }
 
+  async update(entity: Note, options: WhereOptions): Promise<void> {
+    await NoteModel.update(entity, {
+      where: options.where,
+      transaction: this.transaction,
+    });
+  }
+
   async delete(options: WhereOptions): Promise<Note> {
     const deletedId = await NoteModel.destroy({
       where: options.where,

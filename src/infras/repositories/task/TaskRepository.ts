@@ -41,6 +41,13 @@ export default class TaskRepository implements ITaskRepository {
     return dataEntry;
   }
 
+  async update(entity: Task, options: WhereOptions): Promise<void> {
+    await TaskModel.update(entity, {
+      where: options.where,
+      transaction: this.transaction,
+    });
+  }
+
   async delete(options: WhereOptions): Promise<Task> {
     const deletedId = await TaskModel.destroy({
       where: options.where,

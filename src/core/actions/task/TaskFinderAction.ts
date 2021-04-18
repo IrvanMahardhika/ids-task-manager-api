@@ -25,7 +25,7 @@ export default class TaskFinderAction {
         include: [
           {
             model: 'Note',
-            as: 'note',
+            as: 'Notes',
             required: false,
           },
         ],

@@ -41,6 +41,13 @@ export default class UserRepository implements IUserRepository {
     return dataEntry;
   }
 
+  async update(entity: User, options: WhereOptions): Promise<void> {
+    await UserModel.update(entity, {
+      where: options.where,
+      transaction: this.transaction,
+    });
+  }
+
   async delete(options: WhereOptions): Promise<User> {
     const deletedId = await UserModel.destroy({
       where: options.where,

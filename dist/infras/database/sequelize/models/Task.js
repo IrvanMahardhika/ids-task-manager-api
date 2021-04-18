@@ -13,6 +13,10 @@ const init = (sequelize) => {
         title: {
             type: sequelize_1.DataTypes.STRING,
         },
+        isCompleted: {
+            type: sequelize_1.DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
     }, {
         sequelize,
         tableName: 'task',

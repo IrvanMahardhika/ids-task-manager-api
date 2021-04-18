@@ -6,6 +6,7 @@ export class Task extends Model implements ITask {
   id: number;
   userId: number;
   title: string;
+  isCompleted: boolean;
 }
 
 const init = (sequelize: Sequelize): void => {
@@ -16,6 +17,10 @@ const init = (sequelize: Sequelize): void => {
       },
       title: {
         type: DataTypes.STRING,
+      },
+      isCompleted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
     },
     {

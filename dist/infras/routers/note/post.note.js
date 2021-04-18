@@ -31,7 +31,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postNoteRouter = void 0;
+exports.createNoteRouter = void 0;
 const NoteCreatorAction_1 = __importDefault(require("@core/actions/note/NoteCreatorAction"));
 const NoteRepository_1 = __importDefault(require("@infras/repositories/note/NoteRepository"));
 const RepositoryTransaction_1 = __importDefault(require("@infras/repositories/RepositoryTransaction"));
@@ -58,5 +58,5 @@ const createNoteController = (req, res, next) => __awaiter(void 0, void 0, void 
         next(err);
     }
 });
-exports.postNoteRouter = router.post('/', auth.user, createNoteController);
+exports.createNoteRouter = router.post('/', auth.user, createNoteController);
 //# sourceMappingURL=post.note.js.map

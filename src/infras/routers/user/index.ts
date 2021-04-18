@@ -1,9 +1,9 @@
 import express from 'express';
-import { getUserRouter } from './get.user';
-import { postUserRouter } from './post.user';
+import { loginRouter } from './get.user';
+import { registerUserRouter } from './post.user';
 const router = express.Router();
 
-router.use(getUserRouter);
-router.use(postUserRouter);
+router.use(loginRouter);
+router.use(registerUserRouter);
 
 export default router;

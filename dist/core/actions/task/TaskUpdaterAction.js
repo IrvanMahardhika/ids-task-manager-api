@@ -10,32 +10,50 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const returnValue_1 = require("@core/utils/returnValue");
-class TaskFinderAction {
+class ReferralCodeUpdaterAction {
     constructor(repo) {
-        const { taskRepo } = repo;
+        const { taskRepo, repositoryTransaction } = repo;
         this.taskRepo = taskRepo;
+        this.repositoryTransaction = repositoryTransaction;
     }
-    getTaskByUserId(conditions) {
+    startTransaction() {
         return __awaiter(this, void 0, void 0, function* () {
+            if (this.repositoryTransaction) {
+                yield this.repositoryTransaction.startTransaction([this.taskRepo]);
+            }
+        });
+    }
+    commit() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.repositoryTransaction) {
+                yield this.repositoryTransaction.commit();
+            }
+        });
+    }
+    rollback() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.repositoryTransaction) {
+                yield this.repositoryTransaction.rollback();
+            }
+        });
+    }
+    setCompleted(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.startTransaction();
             try {
-                const { userId } = conditions;
-                const taskListPerUser = yield this.taskRepo.findAll({
-                    where: { userId },
-                    include: [
-                        {
-                            model: 'Note',
-                            as: 'Notes',
-                            required: false,
-                        },
-                    ],
+                yield this.taskRepo.update({
+                    isCompleted: true,
+                }, {
+                    where: { id },
                 });
+                yield this.commit();
                 return {
                     status: 'SUCCESS',
-                    message: 'success',
-                    data: taskListPerUser,
+                    message: 'Success',
                 };
             }
             catch (error) {
+                yield this.rollback();
                 if (returnValue_1.instanceOfReturnValue(error)) {
                     return error;
                 }
@@ -44,5 +62,5 @@ class TaskFinderAction {
         });
     }
 }
-exports.default = TaskFinderAction;
-//# sourceMappingURL=TaskFinderAction.js.map
+exports.default = ReferralCodeUpdaterAction;
+//# sourceMappingURL=TaskUpdaterAction.js.map

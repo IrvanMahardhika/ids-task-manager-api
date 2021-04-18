@@ -6,5 +6,6 @@ export default interface IRepository<Entity extends IEntity> {
   findOne: (options?: IRepositoryOptions) => Promise<Entity>;
   findAll: (options?: IRepositoryOptions) => Promise<Entity[]>;
   create: (entity: Entity) => Promise<Entity>;
+  update: (entity: Entity, options: WhereOptions) => Promise<void>;
   delete: (options: WhereOptions) => Promise<Entity>;
 }

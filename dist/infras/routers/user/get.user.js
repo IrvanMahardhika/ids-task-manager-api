@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserRouter = void 0;
+exports.loginRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const UserFinderAction_1 = __importDefault(require("@core/actions/user/UserFinderAction"));
 const UserRepository_1 = __importDefault(require("@infras/repositories/user/UserRepository"));
 const JwtService_1 = __importDefault(require("@infras/services/jwt/JwtService"));
 const EncriptionService_1 = __importDefault(require("@infras/services/encription/EncriptionService"));
 const router = express_1.default.Router();
-const getUserController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const loginController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.query;
         const action = new UserFinderAction_1.default({
@@ -45,5 +45,5 @@ const getUserController = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         next(error);
     }
 });
-exports.getUserRouter = router.get('/login', getUserController);
+exports.loginRouter = router.get('/login', loginController);
 //# sourceMappingURL=get.user.js.map

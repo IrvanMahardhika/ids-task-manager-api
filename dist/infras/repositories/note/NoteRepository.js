@@ -39,6 +39,14 @@ class NoteRepository {
             return dataEntry;
         });
     }
+    update(entity, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield NoteModel.update(entity, {
+                where: options.where,
+                transaction: this.transaction,
+            });
+        });
+    }
     delete(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const deletedId = yield NoteModel.destroy({

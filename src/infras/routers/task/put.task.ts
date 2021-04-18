@@ -1,4 +1,4 @@
-import TaskCreatorAction from '@core/actions/task/TaskCreatorAction';
+import TaskUpdaterAction from '@core/actions/task/TaskUpdaterAction';
 import TaskRepository from '@infras/repositories/task/TaskRepository';
 import RepositoryTransaction from '@infras/repositories/RepositoryTransaction';
 import express, { Request, Response, NextFunction } from 'express';
@@ -6,21 +6,20 @@ import * as auth from '@infras/middleware/auth';
 
 const router = express.Router();
 
-const createTaskController = async (
+const setCompletedTaskController = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const { title } = req.body;
-    const { userId } = res.locals;
+    const { taskId } = req.params;
 
-    const action = new TaskCreatorAction({
+    const action = new TaskUpdaterAction({
       taskRepo: new TaskRepository(),
       repositoryTransaction: new RepositoryTransaction(),
     });
 
-    const { status, message } = await action.create({ userId, title });
+    const { status, message } = await action.setCompleted(Number(taskId));
 
     if (status === 'SUCCESS') {
       res.status(200).send({
@@ -35,8 +34,8 @@ const createTaskController = async (
   }
 };
 
-export const createTaskRouter = router.post(
-  '/',
+export const setCompletedTaskRouter = router.put(
+  '/completed/:taskId',
   auth.user,
-  createTaskController,
+  setCompletedTaskController,
 );

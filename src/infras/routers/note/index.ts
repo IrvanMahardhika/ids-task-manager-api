@@ -1,7 +1,7 @@
 import express from 'express';
-import { postNoteRouter } from './post.note';
+import { createNoteRouter } from './post.note';
 const router = express.Router();
 
-router.use(postNoteRouter);
+router.use(createNoteRouter);
 
 export default router;

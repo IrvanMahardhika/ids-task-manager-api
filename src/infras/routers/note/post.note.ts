@@ -34,4 +34,8 @@ const createNoteController = async (
   }
 };
 
-export const postNoteRouter = router.post('/', auth.user, createNoteController);
+export const createNoteRouter = router.post(
+  '/',
+  auth.user,
+  createNoteController,
+);

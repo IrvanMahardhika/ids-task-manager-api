@@ -6,7 +6,7 @@ import EncriptionService from '@infras/services/encription/EncriptionService';
 
 const router = express.Router();
 
-const getUserController = async (
+const loginController = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -42,4 +42,4 @@ const getUserController = async (
   }
 };
 
-export const getUserRouter = router.get('/login', getUserController);
+export const loginRouter = router.get('/login', loginController);

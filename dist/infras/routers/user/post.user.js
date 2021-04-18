@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postUserRouter = void 0;
+exports.registerUserRouter = void 0;
 const UserCreatorAction_1 = __importDefault(require("@core/actions/user/UserCreatorAction"));
 const UserRepository_1 = __importDefault(require("@infras/repositories/user/UserRepository"));
 const RepositoryTransaction_1 = __importDefault(require("@infras/repositories/RepositoryTransaction"));
@@ -21,7 +21,7 @@ const express_1 = __importDefault(require("express"));
 const express_validator_1 = require("express-validator");
 const validator_1 = require("@infras/middleware/validator");
 const router = express_1.default.Router();
-const createUserController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const registerUserController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, email, password } = req.body;
         const action = new UserCreatorAction_1.default({
@@ -47,5 +47,5 @@ const createUserController = (req, res, next) => __awaiter(void 0, void 0, void 
         next(err);
     }
 });
-exports.postUserRouter = router.post('/register', express_validator_1.body('email').isEmail(), validator_1.checkValidationResult, createUserController);
+exports.registerUserRouter = router.post('/register', express_validator_1.body('email').isEmail(), validator_1.checkValidationResult, registerUserController);
 //# sourceMappingURL=post.user.js.map

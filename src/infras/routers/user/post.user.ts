@@ -8,7 +8,7 @@ import { checkValidationResult } from '@infras/middleware/validator';
 
 const router = express.Router();
 
-const createUserController = async (
+const registerUserController = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -45,9 +45,9 @@ const createUserController = async (
   }
 };
 
-export const postUserRouter = router.post(
+export const registerUserRouter = router.post(
   '/register',
   body('email').isEmail(),
   checkValidationResult,
-  createUserController,
+  registerUserController,
 );
